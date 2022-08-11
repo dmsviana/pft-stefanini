@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FuncionarioCreateDlg" widgetVar="FuncionarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFuncionarioTitle}">
+            <h:form id="FuncionarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{funcionarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFuncionarioLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{funcionarioController.selected.nome}" title="#{bundle.CreateFuncionarioTitle_nome}" required="true" requiredMessage="Campo nome é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateFuncionarioLabel_telefone}" for="telefone" />
+                        <p:inputMask mask="(99) 99999-9999" id="telefone" value="#{funcionarioController.selected.telefone}" title="#{bundle.CreateFuncionarioTitle_telefone}" required="true" requiredMessage="Campo telefone é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateFuncionarioLabel_CPF}" for="CPF" />
+                        <p:inputMask mask="999.999.999-99" id="CPF" value="#{funcionarioController.selected.CPF}" title="#{bundle.CreateFuncionarioTitle_CPF}" required="true" requiredMessage="Campo CPF é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateFuncionarioLabel_endereco}" for="endereco" />
+                        <p:inputText id="endereco" value="#{funcionarioController.selected.endereco}" title="#{bundle.CreateFuncionarioTitle_endereco}" required="true" requiredMessage="Campo endereço é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateFuncionarioLabel_estabelecimento}" for="estabelecimento" />
+                        <p:selectOneMenu id="estabelecimento" value="#{funcionarioController.selected.estabelecimento}" >
+                            <f:selectItems value="#{estabelecimentoController.itemsAvailableSelectOne}"
+                                           var="estabelecimentoItem"
+                                           itemLabel="#{estabelecimentoItem.nome}"
+                                           itemValue="#{estabelecimentoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{funcionarioController.create}" value="#{bundle.Save}" update="display,:FuncionarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'FuncionarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FuncionarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

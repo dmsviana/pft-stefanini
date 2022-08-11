@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstabelecimentoCreateDlg" widgetVar="EstabelecimentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEstabelecimentoTitle}">
+            <h:form id="EstabelecimentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estabelecimentoController.selected != null}">
+                         <p:outputLabel value="#{bundle.CreateEstabelecimentoLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{estabelecimentoController.selected.nome}" title="#{bundle.CreateEstabelecimentoTitle_nome}" required="true" requiredMessage="Campo nome é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateEstabelecimentoLabel_CNPJ}" for="CNPJ" />
+                        <p:inputMask mask="999.999.99/9999-99" id="CNPJ" value="#{estabelecimentoController.selected.CNPJ}" title="#{bundle.CreateEstabelecimentoTitle_CNPJ}" required="true" requiredMessage="Campo CNPJ é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateEstabelecimentoLabel_endereco}" for="endereco" />
+                        <p:inputText id="endereco" value="#{estabelecimentoController.selected.endereco}" title="#{bundle.CreateEstabelecimentoTitle_endereco}" required="true" requiredMessage="Campo endereço é obrigatório."/>
+                        <p:outputLabel value="#{bundle.CreateEstabelecimentoLabel_telefone}" for="telefone" />
+                        <p:inputMask mask="(99)99999-9999" id="telefone" value="#{estabelecimentoController.selected.telefone}" title="#{bundle.CreateEstabelecimentoTitle_telefone}" required="true" requiredMessage="Campo telefone é obrigatório."/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estabelecimentoController.create}" value="#{bundle.Save}" update="display,:EstabelecimentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstabelecimentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstabelecimentoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
